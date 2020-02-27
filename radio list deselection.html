@@ -1,0 +1,36 @@
+<script language="javascript" type="text/javascript">
+
+        var _lastCheckedRadio = new Array();
+        $(document).ready(function () {
+            $('input[type="radio"]').click(function () {
+                var indexx = SearchIndex(this.id.substring(0, this.id.indexOf("_")));
+                
+                if (indexx > -1) {
+                    if (this.id == _lastCheckedRadio[indexx]) {
+                        $(this).attr('checked', false);
+                        _lastCheckedRadio.splice(indexx, 1);
+                    }
+                    else {
+                        _lastCheckedRadio.splice(indexx, 1);
+                        _lastCheckedRadio.push(this.id);
+                    }
+                }
+                else {
+                    _lastCheckedRadio.push(this.id);
+                    $(this).attr('checked', true);
+                }
+            });
+        });
+
+        function SearchIndex(Target) {
+            var index = -1;
+            for (i = 0; i < _lastCheckedRadio.length; i++) {
+                if (_lastCheckedRadio[i].search(Target) > -1) {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
+        }
+
+    </script>
